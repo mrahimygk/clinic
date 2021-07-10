@@ -21,7 +21,7 @@ public class Doctor extends Thread {
                 long duration = Utils.mapMinutesToCpuMillis(sessionDuration);
                 System.out.println("(Dr. " + id + "): accepting next patient");
                 final Patient patient = queueHolder.get(this);
-                System.out.println("(Dr. " + id + "): welcome patient " + patient.id+" I have " + sessionDuration + " minutes for you");
+                System.out.println("(Dr. " + id + "): accepting patient " + patient.id+". I have " + sessionDuration + " minutes for you");
                 sleep(duration);
                 System.out.println("(Dr. " + id + "): Done consulting (patient " + patient.id + ")");
             } catch (InterruptedException e) {
