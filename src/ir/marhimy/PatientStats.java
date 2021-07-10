@@ -15,10 +15,10 @@ public class PatientStats {
     }
 
     public PatientStats copyWith(Integer queuePosition, String selectedDoctor, Integer sessionDuration, Integer timeSpentInQueue) {
-        int outQueuePosition;
+        Integer outQueuePosition;
         String outSelectedDoctor;
-        int outSessionDuration;
-        int outTimeSpentInQueue;
+        Integer outSessionDuration;
+        Integer outTimeSpentInQueue;
         if (queuePosition == null) outQueuePosition = this.queuePosition;
         else outQueuePosition = queuePosition;
         if (selectedDoctor == null) outSelectedDoctor = this.selectedDoctor;
