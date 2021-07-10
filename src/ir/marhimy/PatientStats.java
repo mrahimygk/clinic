@@ -1,6 +1,6 @@
 package ir.marhimy;
 
-public class PatientStats {
+public class PatientStats implements Comparable<PatientStats> {
 
     final Integer queuePosition;
     final String selectedDoctor;
@@ -33,5 +33,12 @@ public class PatientStats {
                 outSessionDuration,
                 outTimeSpentInQueue
         );
+    }
+
+    @Override
+    public int compareTo(PatientStats o) {
+        if (o.queuePosition == null) return 1;
+        if (queuePosition == null) return -1;
+        return queuePosition.compareTo(o.queuePosition);
     }
 }
