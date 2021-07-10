@@ -7,9 +7,11 @@ public class QueueHolder extends Thread {
 
     private static final int MAX = 200;
     ArrayBlockingQueue<Patient> queue = new ArrayBlockingQueue<>(MAX);
+    final Simulation simulation;
 
-    public QueueHolder(List<Patient> initList) {
+    public QueueHolder(List<Patient> initList, Simulation simulation) {
         queue.addAll(initList);
+        this.simulation = simulation;
     }
 
     @Override
@@ -35,9 +37,9 @@ public class QueueHolder extends Thread {
         long w = Utils.mapMinutesToCpuMillis(arrivalTime);
         System.out.println(
                 "(Queue): Patient " + patient.id + " is coming in " + arrivalTime + " minutes");
-        wait();
         sleep(w);
         queue.add(patient);
+        simulation.putPatientPosition(patient, queue.size());
         System.out.println(
                 "(Queue): Patient " + patient.id + " has been enqueued");
         notify();
