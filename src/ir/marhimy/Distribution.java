@@ -4,7 +4,6 @@ import java.util.Random;
 
 public class Distribution {
 
-
     public static int calculateRandomSessionDuration(int averageTime) {
         final int rnd = new Random().nextInt(1000);
         if (rnd < 125) return 1;
@@ -16,7 +15,10 @@ public class Distribution {
         return 5;
     }
 
-    public static long simulateSessionDuration(int duration) {
-        return duration * 100L;
+    public static double calculateRandomPatientArrivalTime() {
+        final int rnd = new Random().nextInt(10);
+        if (rnd < 2) return 0.5;
+        if (rnd < 6) return 0.1;
+        return 0.2;
     }
 }
