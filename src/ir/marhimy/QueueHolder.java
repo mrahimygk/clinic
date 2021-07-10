@@ -9,7 +9,7 @@ public class QueueHolder extends Thread {
     ArrayBlockingQueue<Patient> queue = new ArrayBlockingQueue<Patient>(MAX);
 
     public QueueHolder(List<Patient> initList) {
-        initList.forEach(patient -> queue.add(patient));
+        queue.addAll(initList);
     }
 
     @Override
