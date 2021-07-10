@@ -4,6 +4,11 @@ import java.util.Random;
 
 public class Distribution {
 
+    /**
+     * Calculating a random session duration in minutes with the lamest implementation possible.
+     * @param averageTime indicates how we go around returning numbers, averageTime has more chance.
+     * @return a random session duration
+     */
     public static int calculateRandomSessionDuration(int averageTime) {
         final int rnd = new Random().nextInt(1000);
         if (rnd < 125) return 1;
@@ -15,10 +20,10 @@ public class Distribution {
         return 5;
     }
 
-    public static double calculateRandomPatientArrivalTime() {
+    public static int calculateRandomPatientArrivalTime() {
         final int rnd = new Random().nextInt(10);
-        if (rnd < 2) return 0.5;
-        if (rnd < 6) return 0.1;
-        return 0.2;
+        if (rnd < 8) return 1;
+        if (rnd < 9) return 2;
+        return 3;
     }
 }
