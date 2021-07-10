@@ -19,7 +19,7 @@ public class Simulation {
         initList.add(PatientInstantiation.instantiatePatient());
         initList.add(PatientInstantiation.instantiatePatient());*/
 
-        final QueueHolder queueHolder = new QueueHolder(initList);
+        final QueueHolder queueHolder = new QueueHolder(initList, this);
 
         List<Doctor> doctorList = new ArrayList<>();
         doctorList.add(new Doctor("A", 3, queueHolder, this));
@@ -38,7 +38,9 @@ public class Simulation {
             queueHolder.stop();
             doctorList.forEach(Thread::stop);
             System.out.println("END");
-            sessionDurations.forEach((p, d) -> System.out.println(p.id + ": " + d.sessionDuration));
+            sessionDurations.forEach((p, d) -> System.out.println(
+                    "("+p.id + ") duration: " + d.sessionDuration + ", position: "+ d.queuePosition
+            ));
         }).start();
     }
 
@@ -55,6 +57,22 @@ public class Simulation {
                     null,
                     null,
                     sessionDuration,
+                    null));
+        }
+    }
+    public void putPatientPosition(Patient patient, int position) {
+        if (sessionDurations.containsKey(patient)) {
+            final PatientStats currentStats = sessionDurations.get(patient);
+            sessionDurations.put(patient, currentStats.copyWith(
+                    position,
+                    null,
+                    null,
+                    null));
+        } else {
+            sessionDurations.put(patient, new PatientStats(
+                    position,
+                    null,
+                    null,
                     null));
         }
     }
