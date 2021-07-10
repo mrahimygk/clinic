@@ -31,9 +31,10 @@ public class QueueHolder extends Thread {
         }
 
         Patient patient = PatientInstantiation.instantiatePatient();
-        long w = Utils.mapLessThanMinuteToCpuMillis(Distribution.calculateRandomPatientArrivalTime());
+        int arrivalTime = Distribution.calculateRandomPatientArrivalTime();
+        long w = Utils.mapMinutesToCpuMillis(arrivalTime);
         System.out.println(
-                "(Queue): Patient " + patient.id + " is coming to be enqueued in " + w + " minutes");
+                "(Queue): Patient " + patient.id + " is coming in " + arrivalTime + " minutes");
         sleep(w);
         queue.add(patient);
         System.out.println(
