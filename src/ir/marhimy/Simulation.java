@@ -28,7 +28,7 @@ public class Simulation {
 
         new Thread(() -> {
             try {
-                sleep(1 * 60 * 1000);
+                sleep(1 * 20 * 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -42,24 +42,25 @@ public class Simulation {
                         final Patient p = e.getKey();
                         final PatientStats d = e.getValue();
                         System.out.println(
-                                "(" + p.id + ") duration: " + d.sessionDuration + ", position: " + d.queuePosition
+                                "Patient " + p.id + ", duration: " + d.sessionDuration + ", position: " + d.queuePosition+
+                                ", selectedDoctor: " + d.selectedDoctor
                         );
                     });
         }).start();
     }
 
-    public void putPatientDuration(Patient patient, int sessionDuration) {
+    public void putPatientDuration(Patient patient, int sessionDuration, String selectedDoctor) {
         if (sessionDurations.containsKey(patient)) {
             final PatientStats currentStats = sessionDurations.get(patient);
             sessionDurations.put(patient, currentStats.copyWith(
                     null,
-                    null,
+                    selectedDoctor,
                     sessionDuration,
                     null));
         } else {
             sessionDurations.put(patient, new PatientStats(
                     null,
-                    null,
+                    selectedDoctor,
                     sessionDuration,
                     null));
         }
