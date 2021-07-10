@@ -5,7 +5,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 public class QueueHolder extends Thread {
 
-    private static final int MAX = 20;
+    private static final int MAX = 200;
     ArrayBlockingQueue<Patient> queue = new ArrayBlockingQueue<Patient>(MAX);
 
     public QueueHolder(List<Patient> initList) {
@@ -35,6 +35,7 @@ public class QueueHolder extends Thread {
         long w = Utils.mapMinutesToCpuMillis(arrivalTime);
         System.out.println(
                 "(Queue): Patient " + patient.id + " is coming in " + arrivalTime + " minutes");
+        wait();
         sleep(w);
         queue.add(patient);
         System.out.println(
