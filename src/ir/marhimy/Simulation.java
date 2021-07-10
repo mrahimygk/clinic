@@ -39,7 +39,7 @@ public class Simulation {
             doctorList.forEach(Thread::stop);
             System.out.println("END");
             sessionDurations.forEach((p, d) -> System.out.println(
-                    "("+p.id + ") duration: " + d.sessionDuration + ", position: "+ d.queuePosition
+                    "(" + p.id + ") duration: " + d.sessionDuration + ", position: " + d.queuePosition
             ));
         }).start();
     }
@@ -60,6 +60,7 @@ public class Simulation {
                     null));
         }
     }
+
     public void putPatientPosition(Patient patient, int position) {
         if (sessionDurations.containsKey(patient)) {
             final PatientStats currentStats = sessionDurations.get(patient);
