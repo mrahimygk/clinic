@@ -3,6 +3,8 @@ package ir.marhimy;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Thread.sleep;
+
 public class Simulation {
     public Simulation() {
 
@@ -20,5 +22,17 @@ public class Simulation {
 
         queueHolder.start();
         doctorList.forEach(Thread::start);
+
+        new Thread(() -> {
+            try {
+                sleep(1 * 60 * 1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            queueHolder.stop();
+            doctorList.forEach(Thread::stop);
+            System.out.println("END");
+        }).start();
     }
 }
