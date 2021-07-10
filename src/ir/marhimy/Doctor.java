@@ -6,11 +6,13 @@ public class Doctor extends Thread {
     final String id;
 
     final QueueHolder queueHolder;
+    final Simulation simulation;
 
-    public Doctor(String id, int averageTime, QueueHolder queueHolder) {
+    public Doctor(String id, int averageTime, QueueHolder queueHolder, Simulation simulation) {
         this.id = id;
         this.averageTime = averageTime;
         this.queueHolder = queueHolder;
+        this.simulation = simulation;
     }
 
     @Override
@@ -21,7 +23,8 @@ public class Doctor extends Thread {
                 long duration = Utils.mapMinutesToCpuMillis(sessionDuration);
                 System.out.println("(Dr. " + id + "): accepting next patient");
                 final Patient patient = queueHolder.get(this);
-                System.out.println("(Dr. " + id + "): accepting patient " + patient.id+". I have " + sessionDuration + " minutes for you");
+                simulation.putPatientDuration(patient, sessionDuration);
+                System.out.println("(Dr. " + id + "): accepting patient " + patient.id + ". I have " + sessionDuration + " minutes for you");
                 sleep(duration);
                 System.out.println("(Dr. " + id + "): Done consulting (patient " + patient.id + ")");
             } catch (InterruptedException e) {
