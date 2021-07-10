@@ -1,9 +1,7 @@
 package ir.marhimy;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.lang.Thread.sleep;
 
@@ -38,9 +36,15 @@ public class Simulation {
             queueHolder.stop();
             doctorList.forEach(Thread::stop);
             System.out.println("END");
-            sessionDurations.forEach((p, d) -> System.out.println(
-                    "(" + p.id + ") duration: " + d.sessionDuration + ", position: " + d.queuePosition
-            ));
+            sessionDurations.entrySet().stream()
+                    .sorted(Map.Entry.comparingByValue())
+                    .forEach(e -> {
+                        final Patient p = e.getKey();
+                        final PatientStats d = e.getValue();
+                        System.out.println(
+                                "(" + p.id + ") duration: " + d.sessionDuration + ", position: " + d.queuePosition
+                        );
+                    });
         }).start();
     }
 
