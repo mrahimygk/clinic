@@ -5,7 +5,4 @@ public class Utils {
         return duration * 100L;
     }
 
-    public static long mapLessThanMinuteToCpuMillis(double duration) {
-        return (long) (duration * 10L);
-    }
 }
