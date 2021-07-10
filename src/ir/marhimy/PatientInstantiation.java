@@ -6,7 +6,11 @@ package ir.marhimy;
  */
 public class PatientInstantiation {
 
+    private static int number = 1;
+    private static final StringBuilder builder = new StringBuilder();
+
     public static Patient instantiatePatient() {
-        return new Patient();
+        builder.setLength(0);
+        return new Patient(builder.append(number++).toString());
     }
 }
