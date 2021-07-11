@@ -6,12 +6,14 @@ public class PatientStats implements Comparable<PatientStats> {
     final String selectedDoctor;
     final Integer sessionDuration;
     final Integer timeSpentInQueue;
+    final Long enqueueTime;
 
-    public PatientStats(Integer queuePosition, String selectedDoctor, Integer sessionDuration, Integer timeSpentInQueue) {
+    public PatientStats(Integer queuePosition, String selectedDoctor, Integer sessionDuration, Integer timeSpentInQueue, Long enqueueTime) {
         this.queuePosition = queuePosition;
         this.selectedDoctor = selectedDoctor;
         this.sessionDuration = sessionDuration;
         this.timeSpentInQueue = timeSpentInQueue;
+        this.enqueueTime = enqueueTime;
     }
 
     public PatientStats copyWith(Integer queuePosition, String selectedDoctor, Integer sessionDuration, Integer timeSpentInQueue) {
@@ -31,14 +33,23 @@ public class PatientStats implements Comparable<PatientStats> {
                 outQueuePosition,
                 outSelectedDoctor,
                 outSessionDuration,
-                outTimeSpentInQueue
-        );
+                outTimeSpentInQueue,
+                enqueueTime);
     }
 
     @Override
     public int compareTo(PatientStats o) {
-        if (o.queuePosition == null) return 1;
-        if (queuePosition == null) return -1;
-        return queuePosition.compareTo(o.queuePosition);
+        if (o.enqueueTime == null) return 1;
+        if (enqueueTime == null) return -1;
+        return enqueueTime.compareTo(o.enqueueTime);
+    }
+
+    @Override
+    public String toString() {
+        return "queuePosition: " + queuePosition +
+                ", selectedDoctor: '" + selectedDoctor + '\'' +
+                ", sessionDuration: " + sessionDuration +
+                ", timeSpentInQueue: " + timeSpentInQueue+
+                ", enqueueTime: " + enqueueTime;
     }
 }
