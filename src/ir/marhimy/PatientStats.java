@@ -47,8 +47,8 @@ public class PatientStats implements Comparable<PatientStats> {
     @Override
     public String toString() {
         return "queuePosition: " + queuePosition +
-                ", selectedDoctor: '" + selectedDoctor + '\'' +
-                ", sessionDuration: " + sessionDuration +
-                ", timeSpentInQueue: " + timeSpentInQueue;
+                ", \tselectedDoctor: '" + selectedDoctor + '\'' +
+                ", \tsessionDuration: " + sessionDuration +
+                ", \ttimeSpentInQueue: " + timeSpentInQueue;
     }
 }
