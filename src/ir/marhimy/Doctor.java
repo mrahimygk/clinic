@@ -8,11 +8,14 @@ public class Doctor extends Thread {
     final QueueHolder queueHolder;
     final Simulation simulation;
 
+    final DoctorStats stats;
+
     public Doctor(String id, int averageTime, QueueHolder queueHolder, Simulation simulation) {
         this.id = id;
         this.averageTime = averageTime;
         this.queueHolder = queueHolder;
         this.simulation = simulation;
+        stats = new DoctorStats(this);
     }
 
     @Override
@@ -23,7 +26,9 @@ public class Doctor extends Thread {
                 long duration = Utils.mapMinutesToCpuMillis(sessionDuration);
                 System.out.println("(Dr. " + id + "): accepting next patient");
                 final Patient patient = queueHolder.get(this);
-                simulation.putPatientDuration(patient, sessionDuration, id);
+                final long acceptTime =System.nanoTime();
+                simulation.putPatientDuration(patient, sessionDuration, id, acceptTime);
+                stats.addPatientStats(new DoctorSession(patient, sessionDuration, acceptTime));
                 System.out.println("(Dr. " + id + "): accepting patient " + patient.id + ". I have " + sessionDuration + " minutes for you");
                 sleep(duration);
                 System.out.println("(Dr. " + id + "): Done consulting (patient " + patient.id + ")");
@@ -31,5 +36,10 @@ public class Doctor extends Thread {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return stats.toString();
     }
 }
