@@ -49,7 +49,6 @@ public class PatientStats implements Comparable<PatientStats> {
         return "queuePosition: " + queuePosition +
                 ", selectedDoctor: '" + selectedDoctor + '\'' +
                 ", sessionDuration: " + sessionDuration +
-                ", timeSpentInQueue: " + timeSpentInQueue+
-                ", enqueueTime: " + enqueueTime;
+                ", timeSpentInQueue: " + timeSpentInQueue;
     }
 }
