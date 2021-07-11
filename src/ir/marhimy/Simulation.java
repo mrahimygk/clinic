@@ -1,12 +1,15 @@
 package ir.marhimy;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static java.lang.Thread.sleep;
 
 public class Simulation {
 
-    public Map<Patient, PatientStats> sessionDurations = new HashMap<>();
+    public final Map<Patient, PatientStats> sessionDurations = new HashMap<>();
 
     public Simulation() {
 
@@ -42,23 +45,27 @@ public class Simulation {
                         final PatientStats d = e.getValue();
                         System.out.println(p.toString() + ", \t" + d.toString());
                     });
+            doctorList.forEach(doctor -> {
+                System.out.println(doctor.toString());
+            });
         }).start();
     }
 
-    public void putPatientDuration(Patient patient, int sessionDuration, String selectedDoctor) {
+    public void putPatientDuration(Patient patient, int sessionDuration, String selectedDoctor, long acceptTime) {
         if (sessionDurations.containsKey(patient)) {
             final PatientStats currentStats = sessionDurations.get(patient);
             sessionDurations.put(patient, currentStats.copyWith(
                     null,
                     selectedDoctor,
                     sessionDuration,
-                    null));
+                    null,
+                    acceptTime));
         } else {
             sessionDurations.put(patient, new PatientStats(
                     null,
                     selectedDoctor,
                     sessionDuration,
-                    null, null));
+                    null, null, acceptTime));
         }
     }
 
@@ -69,13 +76,14 @@ public class Simulation {
                     position,
                     null,
                     null,
+                    null,
                     null));
         } else {
             sessionDurations.put(patient, new PatientStats(
                     position,
                     null,
                     null,
-                    null, enqueueTime));
+                    null, enqueueTime, null));
         }
     }
 }
