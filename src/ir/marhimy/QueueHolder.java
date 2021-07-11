@@ -39,7 +39,7 @@ public class QueueHolder extends Thread {
                 "(Queue): Patient " + patient.id + " is coming in " + arrivalTime + " minutes");
         sleep(w);
         queue.add(patient);
-        simulation.putPatientPosition(patient, queue.size(), System.currentTimeMillis());
+        simulation.putPatientPosition(patient, queue.size(), System.nanoTime());
         System.out.println(
                 "(Queue): Patient " + patient.id + " has been enqueued");
         notify();
