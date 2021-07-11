@@ -40,7 +40,7 @@ public class Simulation {
                     .forEach(e -> {
                         final Patient p = e.getKey();
                         final PatientStats d = e.getValue();
-                        System.out.println(p.toString() + ", " + d.toString());
+                        System.out.println(p.toString() + ", \t" + d.toString());
                     });
         }).start();
     }
