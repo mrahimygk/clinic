@@ -1,7 +1,6 @@
 package ir.marhimy;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.lang.Thread.sleep;
 
@@ -41,10 +40,7 @@ public class Simulation {
                     .forEach(e -> {
                         final Patient p = e.getKey();
                         final PatientStats d = e.getValue();
-                        System.out.println(
-                                "Patient " + p.id + ", duration: " + d.sessionDuration + ", position: " + d.queuePosition+
-                                ", selectedDoctor: " + d.selectedDoctor
-                        );
+                        System.out.println(p.toString() + ", " + d.toString());
                     });
         }).start();
     }
@@ -62,11 +58,11 @@ public class Simulation {
                     null,
                     selectedDoctor,
                     sessionDuration,
-                    null));
+                    null, null));
         }
     }
 
-    public void putPatientPosition(Patient patient, int position) {
+    public void putPatientPosition(Patient patient, int position, long enqueueTime) {
         if (sessionDurations.containsKey(patient)) {
             final PatientStats currentStats = sessionDurations.get(patient);
             sessionDurations.put(patient, currentStats.copyWith(
@@ -79,7 +75,7 @@ public class Simulation {
                     position,
                     null,
                     null,
-                    null));
+                    null, enqueueTime));
         }
     }
 }
