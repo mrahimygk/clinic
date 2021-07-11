@@ -5,7 +5,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 
 public class QueueHolder extends Thread {
 
-    private static final int MAX = 200;
+    private static final int MAX = 10;
     ArrayBlockingQueue<Patient> queue = new ArrayBlockingQueue<>(MAX);
     final Simulation simulation;
 
