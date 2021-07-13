@@ -23,7 +23,7 @@ public class DoctorStats {
         builder.append(doctor.id);
         builder.append(": ");
         builder.append("|");
-        sessionDurations.forEach(patientStats -> builder.append(String.format("%"+patientStats.sessionDuration*2+"d%s" , patientStats.sessionDuration, "|")));
+        sessionDurations.forEach(patientStats -> builder.append(String.format("%"+patientStats.sessionDuration*2+"d %s" , patientStats.sessionDuration, "|")));
         return builder.toString();
     }
 }
